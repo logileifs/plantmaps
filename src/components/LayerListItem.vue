@@ -53,10 +53,10 @@ function emitMyEvent() {
 <template>
   <li class="layer-list-item" :id="'li'+props.layer.id">
     <label class="container">
-      {{ layer.name }}<br>
-      <span class="details">{{ props.layer.period }}</span>
+      <span class="main-text">{{ layer.name }}</span>
+      <span class="details">{{ props.layer.details }}</span>
       <input ref="input" v-on:click="emitMyEvent" type="checkbox">
-      <span v-if="props.layer.period" class="checkmark"></span>
+      <span v-if="props.layer.details" class="checkmark"></span>
     </label>
   </li>
 </template>
@@ -71,6 +71,11 @@ function emitMyEvent() {
   opacity: 25%;
   cursor: pointer;
 }*/
+
+span {
+  display: flex;
+}
+
 .details {
   font-size: 10px;
 }
