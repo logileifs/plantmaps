@@ -5,7 +5,10 @@ import LayerListItem from './LayerListItem.vue'
 
 //defineProps(['title'])
 const props = defineProps({
-  layers: Object
+  layers: Object,
+  startChecked: {
+    default:false 
+  }
 })
 
 onMounted(async () => {
@@ -22,6 +25,7 @@ watchEffect(async () => {})
         :layer="layer"
         :key="layer.name"
         :title="layer.name"
+        :start-checked="props.startChecked"
       ></LayerListItem>
   </ul>
 </template>
@@ -29,5 +33,6 @@ watchEffect(async () => {})
 <style scoped>
 .layer-list {
   list-style-type: none;
+  padding-inline-start: 5%;
 }
 </style>

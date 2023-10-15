@@ -3,13 +3,35 @@ import { ref, inject, onMounted, watchEffect } from 'vue'
 
 const emitter = inject('emitter');
 const props = defineProps({
-  layer: Object
+  layer: Object,
+  startChecked: {
+    default: false
+  }
 })
 const input = ref(null)
+
+function drawItem() {
+  let color = props.layer.color ? props.layer.color : 'rgb(255,0,0)'
+  // layer is selected and should be drawn
+  emitter.emit('draw-layer', {
+    'id': props.layer.id,
+    'type': 'fill',
+    'source': props.layer.id,
+    'layout': {},
+    'paint': {
+      'fill-color': color,
+      'fill-opacity': 0.5
+    }
+  })
+}
 
 onMounted(async () => {
   console.log(props.layer)
   console.log('LayerListItem.vue mounted')
+  if (props.startChecked) {
+    drawItem()
+    input.value.checked = true
+  }
 })
 
 watchEffect(async () => {})
@@ -17,18 +39,7 @@ watchEffect(async () => {})
 function emitMyEvent() {
   let layerId = 'ff' + props.layer.name.replace(' ', '').toLowerCase()
   if (input.value.checked) {
-    let color = props.layer.color ? props.layer.color : 'rgb(255,0,0)'
-    // layer is selected and should be drawn
-    emitter.emit('draw-layer', {
-      'id': props.layer.id,
-      'type': 'fill',
-      'source': props.layer.id,
-      'layout': {},
-      'paint': {
-        'fill-color': color,
-        'fill-opacity': 0.5
-      }
-    })
+    drawItem()
     console.log('draw-layer event fired')
   }
   else {
@@ -69,7 +80,7 @@ function emitMyEvent() {
   display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   cursor: pointer;
   font-size: 14px;
   -webkit-user-select: none;

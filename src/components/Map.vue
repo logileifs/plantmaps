@@ -109,15 +109,17 @@ watch(mapStyle, async (current, previous) => {
   })
   // remove all sources
   firstFrostLayers.value.map((layer) => {
-    //let layerId = 'ff' + layer.name.replace(' ', '').toLowerCase()
     removeSource(layer.id)
   })
   // set new map style
   setStyle(current)
   setTimeout(() => {
-    // add back sources
+    // add back first frost sources
     firstFrostLayers.value.map((layer) => {
-      //let layerId = 'ff' + layer.name.replace(' ', '').toLowerCase()
+      addSource(layer.id, layer)
+    })
+    // add back plants sources
+    plants.value.map((layer) => {
       addSource(layer.id, layer)
     })
     // add back layers

@@ -16,6 +16,11 @@ onMounted(async () => {
 watch(firstFrostLayers, async (current, previous) => {
   console.log('firstFrostLayers updated')
 })
+
+let fakeLastFrost = [
+  {"name": "Fake zone 1"},
+  {"name": "Fake zone 2"},
+]
 </script>
 
 <template>
@@ -30,9 +35,9 @@ watch(firstFrostLayers, async (current, previous) => {
     <div class="divider">
       <h1>Layers</h1>
       <span class="anchor">First Frost</span>
-      <LayerList :layers="firstFrostLayers"></LayerList>
+      <LayerList :layers="firstFrostLayers" :start-checked="true"></LayerList>
       <span class="anchor">Last Frost</span>
-      <LayerList :layers="lastFrostLayers"></LayerList>
+      <LayerList :layers="fakeLastFrost"></LayerList>
       <span class="anchor">Plants</span>
       <LayerList :layers="plants"></LayerList>
     </div>
@@ -55,5 +60,17 @@ watch(firstFrostLayers, async (current, previous) => {
   padding-bottom: 4px;
   border-bottom-style: outset;
   border-bottom-width: 1px;
+}
+
+@media only screen and (max-device-width: 1440px){
+  #sidebar {
+    width: 15%;
+  }
+}
+
+@media only screen and (max-device-width: 1000px){
+  #sidebar {
+    width: 25%;
+  }
 }
 </style>
