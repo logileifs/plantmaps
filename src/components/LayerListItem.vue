@@ -1,0 +1,132 @@
+<script setup>
+import { ref, inject, onMounted, watchEffect } from 'vue'
+
+const emitter = inject('emitter');
+const props = defineProps({
+  layer: Object
+})
+const input = ref(null)
+
+onMounted(async () => {
+  console.log(props.layer)
+  console.log('LayerListItem.vue mounted')
+})
+
+watchEffect(async () => {})
+
+function emitMyEvent() {
+  let layerId = 'ff' + props.layer.name.replace(' ', '').toLowerCase()
+  if (input.value.checked) {
+    let color = props.layer.color ? props.layer.color : 'rgb(255,0,0)'
+    // layer is selected and should be drawn
+    emitter.emit('draw-layer', {
+      'id': props.layer.id,
+      'type': 'fill',
+      'source': props.layer.id,
+      'layout': {},
+      'paint': {
+        'fill-color': color,
+        'fill-opacity': 0.5
+      }
+    })
+    console.log('draw-layer event fired')
+  }
+  else {
+    // layer is deselected and should be removed
+    emitter.emit('remove-layer', props.layer.id)
+    console.log('remove-layer event fired')
+  }
+}
+</script>
+
+<template>
+  <li class="layer-list-item" :id="'li'+props.layer.id">
+    <label class="container">
+      {{ layer.name }}
+      <input ref="input" v-on:click="emitMyEvent" type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+  </li>
+</template>
+
+<style scoped>
+/*.layer-list-item {
+  background-color: v-bind(props.layer.color);
+}*/
+
+/*label:hover {
+  text-decoration: underline;
+  opacity: 25%;
+  cursor: pointer;
+}*/
+
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: v-bind(props.layer.color);
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: v-bind(props.layer.color);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid gray;
+  border-width: 0 3px 3px 0;
+  border-color: black;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  box-shadow: 0px 0px 1px white;
+}
+</style>
