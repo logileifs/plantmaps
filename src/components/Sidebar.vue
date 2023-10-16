@@ -48,6 +48,7 @@ let fakeLastFrost = [
 h1 {
   font-size: 1.5em;
 }
+
 #sidebar {
   position: absolute;
   top: 0;
@@ -73,6 +74,14 @@ h1 {
 }
 
 @media only screen and (max-device-width: 1000px){
+  h1 {
+    font-size: 1.2em;
+  }
+
+  #anchor {
+    font-size: 0.9em;
+  }
+
   #sidebar {
     width: 25%;
   }

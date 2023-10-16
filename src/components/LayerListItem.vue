@@ -161,4 +161,14 @@ span {
   transform: rotate(45deg);
   /*box-shadow: 0px 0px 1px white;*/
 }
+
+@media only screen and (max-device-width: 1000px){
+  .main-text {
+    font-size: 13px;
+  }
+
+  .details {
+    font-size: 8px;
+  }
+}
 </style>
