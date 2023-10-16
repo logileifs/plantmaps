@@ -1,8 +1,8 @@
 build:
-	npm run build
+	npx vite build
 
 run:
-	npm run dev
+	npx vite --host 0.0.0.0
 
 preview:
 	npx vite preview --port 5173
