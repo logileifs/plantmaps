@@ -9,9 +9,10 @@ const props = defineProps({
   }
 })
 const input = ref(null)
+let itemColor = ref('rgb(255, 0, 0)')  // maybe select a random color here???
 
 function drawItem() {
-  let color = props.layer.color ? props.layer.color : 'rgb(255,0,0)'
+  //let color = props.layer.color ? props.layer.color : 'rgb(255,0,0)'
   // layer is selected and should be drawn
   emitter.emit('draw-layer', {
     'id': props.layer.id,
@@ -19,13 +20,17 @@ function drawItem() {
     'source': props.layer.id,
     'layout': {},
     'paint': {
-      'fill-color': color,
+      'fill-color': itemColor.value,
       'fill-opacity': 0.5
     }
   })
 }
 
 onMounted(async () => {
+  if (props.layer.color) {
+    itemColor.value = props.layer.color
+  }
+  console.log(`itemColor: ${itemColor}`)
   console.log(props.layer)
   console.log('LayerListItem.vue mounted')
   if (props.startChecked) {
@@ -37,7 +42,6 @@ onMounted(async () => {
 watchEffect(async () => {})
 
 function emitMyEvent() {
-  let layerId = 'ff' + props.layer.name.replace(' ', '').toLowerCase()
   if (input.value.checked) {
     drawItem()
     console.log('draw-layer event fired')
@@ -118,17 +122,17 @@ span {
   left: 0;
   height: 20px;
   width: 20px;
-  background-color: v-bind(props.layer.color);
+  background-color: v-bind(itemColor);
 }
 
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: v-bind(itemColor);
 }
 
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
-  background-color: v-bind(props.layer.color);
+  background-color: v-bind(itemColor);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
