@@ -45,6 +45,9 @@ let fakeLastFrost = [
 </template>
 
 <style scoped>
+h1 {
+  font-size: 1.5em;
+}
 #sidebar {
   position: absolute;
   top: 0;
@@ -54,6 +57,7 @@ let fakeLastFrost = [
   z-index: 1;
   /*font-size: 50px;*/
   background-color: rgba(0, 0, 0, 0.5);
+  overflow: auto;
 }
 
 .divider {

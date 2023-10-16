@@ -76,15 +76,23 @@ span {
   display: flex;
 }
 
+.main-text {
+  width: 100%;
+}
+
 .details {
+  width: 100%;
   font-size: 10px;
 }
 
 /* Customize the label (the container) */
 .container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  padding-left: 35px;
+  padding-left: 24%;
   margin-bottom: 0;
   cursor: pointer;
   font-size: 14px;
@@ -106,10 +114,10 @@ span {
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
-  top: 0;
+  /*top: 0;*/
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   background-color: v-bind(props.layer.color);
 }
 
@@ -137,16 +145,16 @@ span {
 
 /* Style the checkmark/indicator */
 .container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
+  left: 35%;
+  top: 20%;
+  width: 30%;
+  height: 50%;
   border: solid gray;
   border-width: 0 3px 3px 0;
   border-color: black;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-  box-shadow: 0px 0px 1px white;
+  /*box-shadow: 0px 0px 1px white;*/
 }
 </style>
